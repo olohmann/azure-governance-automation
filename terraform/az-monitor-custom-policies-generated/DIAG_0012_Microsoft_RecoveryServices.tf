@@ -1,14 +1,14 @@
-resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" {
-  name         = "${var.custom_policies_prefix}_DIAG_0002_Microsoft_DataLakeStore"
+resource "azurerm_policy_definition" "policy_DIAG_0012_Microsoft_RecoveryServices" {
+  name         = "${var.custom_policies_prefix}_DIAG_0012_Microsoft_RecoveryServices"
   policy_type  = "Custom"
   mode         = "Indexed"
-  display_name = "${var.custom_policies_prefix}_DIAG_0002_Microsoft_DataLakeStore"
+  display_name = "${var.custom_policies_prefix}_DIAG_0012_Microsoft_RecoveryServices"
 
   policy_rule = <<POLICY_RULE
 {
     "if": {
         "field": "type",
-        "equals": "Microsoft.DataLakeStore/accounts"
+        "equals": "Microsoft.RecoveryServices/Vaults"
     },
     "then": {
         "effect": "deployIfNotExists",
@@ -41,7 +41,7 @@ resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" 
                         },
                         "variables": {},
                         "resources": [{
-                            "type": "Microsoft.DataLakeStore/accounts/providers/diagnosticSettings",
+                            "type": "Microsoft.RecoveryServices/Vaults/providers/diagnosticSettings",
                             "apiVersion": "2017-05-01-preview",
                             "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagSettingsName'))]",
                             "location": "[parameters('location')]",
@@ -49,26 +49,45 @@ resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" 
                             "properties": {
                                 "workspaceId": "[parameters('logAnalytics')]",
                                 
-                                "metrics": [
-                                                {
-                                                    "category": "AllMetrics",
-                                                    "enabled": true,
-                                                    "retentionPolicy": {
-                                                        "enabled": false,
-                                                        "days": 0
-                                                    }
-                                                }
-                                            ],
-                                
                                 "logs": [
                                   
                                   {
-                                    "category": "Audit",
+                                    "category": "AzureBackupReport",
                                     "enabled": "true"
                                   } ,
                                   
                                   {
-                                    "category": "Requests",
+                                    "category": "AzureSiteRecoveryEvents",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "AzureSiteRecoveryJobs",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "AzureSiteRecoveryProtectedDiskDataChurn",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "AzureSiteRecoveryRecoveryPoints",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "AzureSiteRecoveryReplicatedItems",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "AzureSiteRecoveryReplicationDataUploadRate",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "AzureSiteRecoveryReplicationStats",
                                     "enabled": "true"
                                   } 
                                   

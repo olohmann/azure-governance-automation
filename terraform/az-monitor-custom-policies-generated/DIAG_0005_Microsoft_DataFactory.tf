@@ -1,14 +1,14 @@
-resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" {
-  name         = "${var.custom_policies_prefix}_DIAG_0002_Microsoft_DataLakeStore"
+resource "azurerm_policy_definition" "policy_DIAG_0005_Microsoft_DataFactory" {
+  name         = "${var.custom_policies_prefix}_DIAG_0005_Microsoft_DataFactory"
   policy_type  = "Custom"
   mode         = "Indexed"
-  display_name = "${var.custom_policies_prefix}_DIAG_0002_Microsoft_DataLakeStore"
+  display_name = "${var.custom_policies_prefix}_DIAG_0005_Microsoft_DataFactory"
 
   policy_rule = <<POLICY_RULE
 {
     "if": {
         "field": "type",
-        "equals": "Microsoft.DataLakeStore/accounts"
+        "equals": "Microsoft.DataFactory/factories"
     },
     "then": {
         "effect": "deployIfNotExists",
@@ -41,7 +41,7 @@ resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" 
                         },
                         "variables": {},
                         "resources": [{
-                            "type": "Microsoft.DataLakeStore/accounts/providers/diagnosticSettings",
+                            "type": "Microsoft.DataFactory/factories/providers/diagnosticSettings",
                             "apiVersion": "2017-05-01-preview",
                             "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagSettingsName'))]",
                             "location": "[parameters('location')]",
@@ -63,12 +63,17 @@ resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" 
                                 "logs": [
                                   
                                   {
-                                    "category": "Audit",
+                                    "category": "ActivityRuns",
                                     "enabled": "true"
                                   } ,
                                   
                                   {
-                                    "category": "Requests",
+                                    "category": "PipelineRuns",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "TriggerRuns",
                                     "enabled": "true"
                                   } 
                                   

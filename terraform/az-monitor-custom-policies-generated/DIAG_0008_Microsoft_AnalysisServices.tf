@@ -1,14 +1,14 @@
-resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" {
-  name         = "${var.custom_policies_prefix}_DIAG_0002_Microsoft_DataLakeStore"
+resource "azurerm_policy_definition" "policy_DIAG_0008_Microsoft_AnalysisServices" {
+  name         = "${var.custom_policies_prefix}_DIAG_0008_Microsoft_AnalysisServices"
   policy_type  = "Custom"
   mode         = "Indexed"
-  display_name = "${var.custom_policies_prefix}_DIAG_0002_Microsoft_DataLakeStore"
+  display_name = "${var.custom_policies_prefix}_DIAG_0008_Microsoft_AnalysisServices"
 
   policy_rule = <<POLICY_RULE
 {
     "if": {
         "field": "type",
-        "equals": "Microsoft.DataLakeStore/accounts"
+        "equals": "Microsoft.AnalysisServices/servers"
     },
     "then": {
         "effect": "deployIfNotExists",
@@ -41,7 +41,7 @@ resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" 
                         },
                         "variables": {},
                         "resources": [{
-                            "type": "Microsoft.DataLakeStore/accounts/providers/diagnosticSettings",
+                            "type": "Microsoft.AnalysisServices/servers/providers/diagnosticSettings",
                             "apiVersion": "2017-05-01-preview",
                             "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagSettingsName'))]",
                             "location": "[parameters('location')]",
@@ -63,12 +63,12 @@ resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" 
                                 "logs": [
                                   
                                   {
-                                    "category": "Audit",
+                                    "category": "Engine",
                                     "enabled": "true"
                                   } ,
                                   
                                   {
-                                    "category": "Requests",
+                                    "category": "Service",
                                     "enabled": "true"
                                   } 
                                   

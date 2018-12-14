@@ -26,6 +26,126 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
           }
         },
         "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0002_Microsoft_DataLakeStore.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0003_Microsoft_ContainerRegistry.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0004_Microsoft_ContainerInstance.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0005_Microsoft_DataFactory.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0006_Microsoft_DataLakeAnalytics.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0007_Microsoft_ContainerService.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0008_Microsoft_AnalysisServices.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0009_Microsoft_Network.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0010_Microsoft_StreamAnalytics.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0011_Microsoft_Automation.name}"
+    },
+    
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0012_Microsoft_RecoveryServices.name}"
     }
     
 ]' --params '{

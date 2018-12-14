@@ -16,7 +16,8 @@ resource "azurerm_policy_definition" "policy_{{policyPartialName}}" {
             "type": "Microsoft.Insights/diagnosticSettings",
             "name": "setByPolicy",
             "roleDefinitionIds": [
-                "/providers/Microsoft.Authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa"
+                "/providers/Microsoft.Authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+                "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
             ],
             "deployment": {
                 "properties": {

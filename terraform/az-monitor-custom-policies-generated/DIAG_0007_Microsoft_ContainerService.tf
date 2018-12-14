@@ -1,14 +1,14 @@
-resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" {
-  name         = "${var.custom_policies_prefix}_DIAG_0002_Microsoft_DataLakeStore"
+resource "azurerm_policy_definition" "policy_DIAG_0007_Microsoft_ContainerService" {
+  name         = "${var.custom_policies_prefix}_DIAG_0007_Microsoft_ContainerService"
   policy_type  = "Custom"
   mode         = "Indexed"
-  display_name = "${var.custom_policies_prefix}_DIAG_0002_Microsoft_DataLakeStore"
+  display_name = "${var.custom_policies_prefix}_DIAG_0007_Microsoft_ContainerService"
 
   policy_rule = <<POLICY_RULE
 {
     "if": {
         "field": "type",
-        "equals": "Microsoft.DataLakeStore/accounts"
+        "equals": "Microsoft.ContainerService/managedClusters"
     },
     "then": {
         "effect": "deployIfNotExists",
@@ -41,7 +41,7 @@ resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" 
                         },
                         "variables": {},
                         "resources": [{
-                            "type": "Microsoft.DataLakeStore/accounts/providers/diagnosticSettings",
+                            "type": "Microsoft.ContainerService/managedClusters/providers/diagnosticSettings",
                             "apiVersion": "2017-05-01-preview",
                             "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('diagSettingsName'))]",
                             "location": "[parameters('location')]",
@@ -63,12 +63,22 @@ resource "azurerm_policy_definition" "policy_DIAG_0002_Microsoft_DataLakeStore" 
                                 "logs": [
                                   
                                   {
-                                    "category": "Audit",
+                                    "category": "guard",
                                     "enabled": "true"
                                   } ,
                                   
                                   {
-                                    "category": "Requests",
+                                    "category": "kube-apiserver",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "kube-controller-manager",
+                                    "enabled": "true"
+                                  } ,
+                                  
+                                  {
+                                    "category": "kube-scheduler",
                                     "enabled": "true"
                                   } 
                                   
