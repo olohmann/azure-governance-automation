@@ -13,7 +13,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0001_Microsoft_Sql.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0001_Microsoft_Sql.id}"
     },
     
     {
@@ -25,7 +25,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0002_Microsoft_DataLakeStore.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0002_Microsoft_DataLakeStore.id}"
     },
     
     {
@@ -37,7 +37,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0003_Microsoft_ContainerRegistry.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0003_Microsoft_ContainerRegistry.id}"
     },
     
     {
@@ -49,7 +49,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0004_Microsoft_ContainerInstance.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0004_Microsoft_ContainerInstance.id}"
     },
     
     {
@@ -61,7 +61,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0005_Microsoft_DataFactory.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0005_Microsoft_DataFactory.id}"
     },
     
     {
@@ -73,7 +73,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0006_Microsoft_DataLakeAnalytics.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0006_Microsoft_DataLakeAnalytics.id}"
     },
     
     {
@@ -85,7 +85,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0007_Microsoft_ContainerService.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0007_Microsoft_ContainerService.id}"
     },
     
     {
@@ -97,7 +97,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0008_Microsoft_AnalysisServices.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0008_Microsoft_AnalysisServices.id}"
     },
     
     {
@@ -109,7 +109,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0009_Microsoft_Network.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0009_Microsoft_Network.id}"
     },
     
     {
@@ -121,7 +121,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0010_Microsoft_StreamAnalytics.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0010_Microsoft_StreamAnalytics.id}"
     },
     
     {
@@ -133,7 +133,7 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0011_Microsoft_Automation.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0011_Microsoft_Automation.id}"
     },
     
     {
@@ -145,26 +145,26 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
             "value": "[parameters('"'"'logAnalytics'"'"')]"
           }
         },
-        "policyDefinitionId": "${data.azurerm_subscription.current.id}/providers/Microsoft.Authorization/policyDefinitions/${azurerm_policy_definition.policy_DIAG_0012_Microsoft_RecoveryServices.name}"
+        "policyDefinitionId": "${azurerm_policy_definition.policy_DIAG_0012_Microsoft_RecoveryServices.id}"
     }
     
 ]' --params '{
     "diagSettingsName": {
-        "type": "string",
         "metadata": {
             "displayName": "Diagnostic Settings Name",
             "description": "Diagnostic Settings Name. Must be unique per resource."
-        }
+        },
+        "type": "String"
     },
     "logAnalytics": {
-        "type": "string",
         "metadata": {
             "displayName": "Log Analytics Workspace",
             "description": "Select the Log Analytics workspace from dropdown list",
             "strongType": "omsWorkspace"
-        }
+        },
+        "type": "String"
     }
-}'
+}' --description '${var.custom_policies_prefix}_ ${var.deployment_version}'
 COMMAND
 }
 

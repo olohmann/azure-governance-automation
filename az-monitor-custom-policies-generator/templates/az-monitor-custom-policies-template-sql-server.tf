@@ -3,7 +3,12 @@ resource "azurerm_policy_definition" "policy_{{policyPartialName}}" {
   policy_type  = "Custom"
   mode         = "Indexed"
   display_name = "${var.custom_policies_prefix}_{{policyPartialName}}"
-
+  description  = "${var.custom_policies_prefix}_{{policyPartialName}} ${var.deployment_version}"
+  metadata = <<METADATA
+{ 
+    "category": "Monitoring" 
+}
+METADATA
   policy_rule = <<POLICY_RULE
 {
     "if": {
@@ -43,7 +48,7 @@ resource "azurerm_policy_definition" "policy_{{policyPartialName}}" {
                         "resources": [{
                             "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
                             "apiVersion": "2017-05-01-preview",
-                            "name": "[concat(parameters('fullDbName'), '/', 'Microsoft.Insights/', parameters('diagSettingsName')]",
+                            "name": "[concat(parameters('fullDbName'), '/', 'Microsoft.Insights/', parameters('diagSettingsName'))]",
                             "location": "[parameters('location')]",
                             "dependsOn": [],
                             "properties": {
@@ -97,19 +102,19 @@ POLICY_RULE
   parameters = <<PARAMETERS
 {
     "diagSettingsName": {
-        "type": "string",
         "metadata": {
-            "displayName": "Diagnostic Settings Name",
-            "description": "Diagnostic Settings Name. Must be unique per resource."
-        }
+            "description": "Diagnostic Settings Name. Must be unique per resource.",
+            "displayName": "Diagnostic Settings Name"
+        },
+        "type": "String"
     },
     "logAnalytics": {
-        "type": "string",
         "metadata": {
-            "displayName": "Log Analytics Workspace",
             "description": "Select the Log Analytics workspace from dropdown list",
+            "displayName": "Log Analytics Workspace",
             "strongType": "omsWorkspace"
-        }
+        },
+        "type": "String"
     }
 }
 PARAMETERS

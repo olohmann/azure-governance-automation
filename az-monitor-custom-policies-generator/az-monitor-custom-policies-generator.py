@@ -21,8 +21,8 @@ def get_policy_name_suffix(resourceType):
 def get_policy_partial_name(namePrefix, resourceType):
     return namePrefix + '_' + get_policy_name_suffix(resourceType)
 
-def config_item_to_terraform_variable_policy_name(item): 
-    return "${azurerm_policy_definition.policy_" + get_policy_partial_name(item["namePrefix"], item["resourceType"]) + ".name}"
+def config_item_to_terraform_variable_policy_id(item): 
+    return "${azurerm_policy_definition.policy_" + get_policy_partial_name(item["namePrefix"], item["resourceType"]) + ".id}"
 
 with open('az-monitor-custom-policies-generator-config.json') as f:
     config = json.load(f)
@@ -49,5 +49,5 @@ for item in config:
 
 # Generate a single Policy Initiative
 initiative_template = env.get_template('az-monitor-custom-policies-initiative-template.tf')
-policyDefinitionNames = map(config_item_to_terraform_variable_policy_name, config)
-print(initiative_template.render(policyDefinitionNames=policyDefinitionNames), file=open('../terraform/az-monitor-custom-policies-generated/DIAG_0000_Initiative.tf', 'w'))
+policyDefinitionIds = map(config_item_to_terraform_variable_policy_id, config)
+print(initiative_template.render(policyDefinitionIds=policyDefinitionIds), file=open('../terraform/az-monitor-custom-policies-generated/DIAG_0000_Initiative.tf', 'w'))

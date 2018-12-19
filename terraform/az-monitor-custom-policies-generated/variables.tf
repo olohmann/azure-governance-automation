@@ -1,7 +1,11 @@
 variable "custom_policies_prefix" {
-    type="string"
+  type = "string"
 }
 
 variable "initiative_name" {
-    type="string"
+  type = "string"
+}
+
+variable "deployment_version" {
+  type = "string"
 }

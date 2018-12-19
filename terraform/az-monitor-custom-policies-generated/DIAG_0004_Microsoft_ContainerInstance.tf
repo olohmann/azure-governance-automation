@@ -3,7 +3,12 @@ resource "azurerm_policy_definition" "policy_DIAG_0004_Microsoft_ContainerInstan
   policy_type  = "Custom"
   mode         = "Indexed"
   display_name = "${var.custom_policies_prefix}_DIAG_0004_Microsoft_ContainerInstance"
-
+  description  = "${var.custom_policies_prefix}_DIAG_0004_Microsoft_ContainerInstance ${var.deployment_version}"
+  metadata = <<METADATA
+{ 
+    "category": "Monitoring" 
+}
+METADATA
   policy_rule = <<POLICY_RULE
 {
     "if": {
@@ -92,19 +97,19 @@ POLICY_RULE
   parameters = <<PARAMETERS
 {
    "diagSettingsName": {
-        "type": "string",
         "metadata": {
-            "displayName": "Diagnostic Settings Name",
-            "description": "Diagnostic Settings Name. Must be unique per resource."
-        }
+            "description": "Diagnostic Settings Name. Must be unique per resource.",
+            "displayName": "Diagnostic Settings Name"
+        },
+        "type": "String"
     },
     "logAnalytics": {
-        "type": "string",
         "metadata": {
-            "displayName": "Log Analytics Workspace",
             "description": "Select the Log Analytics workspace from dropdown list",
+            "displayName": "Log Analytics Workspace",
             "strongType": "omsWorkspace"
-        }
+        },
+        "type": "String"
     }
 }
 PARAMETERS
