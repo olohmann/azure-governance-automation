@@ -63,28 +63,28 @@ fi
 BEARER_TOKEN=$(az account get-access-token --output json --query 'accessToken' | tr -d '"' | tr -d '\n')
 HTTP_OUTPUT=$(curl -vvv -d "" -H "Authorization: Bearer ${BEARER_TOKEN}" -X POST "https://management.azure.com/subscriptions/${SUBSCRIPTION}/providers/Microsoft.PolicyInsights/policyStates/latest/triggerEvaluation?api-version=2018-07-01-preview" 2>&1)
 
-SLEEP_INTERVAL=5
+SLEEP_INTERVAL=10
 SLEEP_COUNTER=0
 
 if echo "$HTTP_OUTPUT" | grep -q -E '< HTTP/[0-9.]+ 202 Accepted'; then
     STATUS_URL=$(echo -n "$HTTP_OUTPUT" | grep -E 'Location: ([^ \n].*)' | sed -E 's/< Location: //g' | tr -d '\r' | tr -d '\n')
-    echo "Polling Status..." 
+    echo "Polling Azure Policy Compliance Status..." 
     HTTP_POLL_OUTPUT=$(curl -vvv -H "Authorization: Bearer ${BEARER_TOKEN}" -X GET "${STATUS_URL}" 2>&1)
 
     while echo "$HTTP_POLL_OUTPUT" | grep -q -E '< HTTP/[0-9.]+ 202 Accepted'; do
-        echo "$(date +%Y-%m-%d_%H-%M-%S) Policy is still being evaluated... (running for $(expr ${SLEEP_INTERVAL} \* ${SLEEP_COUNTER}) seconds)"
-        SLEEP_COUNTER=$((SLEEP_COUNTER + 1))
         sleep $SLEEP_INTERVAL
         HTTP_POLL_OUTPUT=$(curl -vvv -H "Authorization: Bearer ${BEARER_TOKEN}" -X GET "${STATUS_URL}" 2>&1)
+        SLEEP_COUNTER=$((SLEEP_COUNTER + 1))
+        echo "$(date +%Y-%m-%d_%H-%M-%S) Azure Policy Compliance is still being evaluated... ($(expr ${SLEEP_INTERVAL} \* ${SLEEP_COUNTER})s elapsed)"
     done
 
     if echo "$HTTP_OUTPUT" | grep -q -E '{"status":"Succeeded"}'; then
-        echo "Policy evaluation has completed."
+        echo "Azure Policy Compliance evaluation has completed."
     else 
-        echo "Unknown error in policy evaluation."
+        echo "Unknown error in Azure Policy Compliance evaluation."
         echo $HTTP_POLL_OUTPUT
     fi
 else
-    echo "Unknown error in policy evaluation."
+    echo "Unknown error in Azure Policy Compliance evaluation."
     echo $HTTP_OUTPUT
 fi
