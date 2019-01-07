@@ -10,7 +10,6 @@ terraform plan \
   -var "log_analytics_workspace_id=${log_analytics_workspace_id}" \
   -var "diagnostics_settings_name=${diagnostics_settings_name}" \
   -var "scope=${scope}" \
-  -var "scope_is_management_group=${scope_is_management_group}" \
   -var "location=${location}" \
   -out=tfplan \
   -input=false 

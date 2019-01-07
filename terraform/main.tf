@@ -7,14 +7,12 @@ module "az_monitor_custom_policies_generated" {
   custom_policies_prefix    = "${var.custom_policies_prefix}"
   initiative_name           = "${var.custom_policies_prefix}_DIAG_0000_Initiative"
   deployment_version        = "${var.deployment_version}"
-  scope                     = "${var.scope}"
-  scope_is_management_group = "${var.scope_is_management_group}"
 }
 
 resource "azurerm_policy_assignment" "initiative_assignment" {
   name                 = "${var.custom_policies_prefix}_DIAG_0000_Initiative_Assignment"
   display_name         = "${var.custom_policies_prefix}_DIAG_0000_Initiative_Assignment"
-  scope                = "/subscriptions/${var.scope}"
+  scope                = "${var.scope}"
   policy_definition_id = "${module.az_monitor_custom_policies_generated.policy_set_id}"
   description          = "${var.custom_policies_prefix}_DIAG_0000_Initiative_Assignment ${var.deployment_version}"
 
@@ -37,13 +35,13 @@ PARAMETERS
 }
 
 resource "azurerm_role_assignment" "initiative_assignment_rbac_monitoring_contributor" {
-  scope                = "/subscriptions/${var.scope}"
+  scope                = "${var.scope}"
   role_definition_name = "Monitoring Contributor"
   principal_id         = "${azurerm_policy_assignment.initiative_assignment.identity.0.principal_id}"
 }
 
 resource "azurerm_role_assignment" "initiative_assignment_rbac_log_analytics_contributor" {
-  scope                = "/subscriptions/${var.scope}"
+  scope                = "${var.scope}"
   role_definition_name = "Log Analytics Contributor"
   principal_id         = "${azurerm_policy_assignment.initiative_assignment.identity.0.principal_id}"
 }

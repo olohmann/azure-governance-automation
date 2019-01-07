@@ -30,10 +30,10 @@ PARAMETERS
     {
         "parameters": {
           "diagSettingsName": {
-            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+            "value": "[parameters('diagSettingsName')]"
           },
           "logAnalytics": {
-            "value": "[parameters('"'"'logAnalytics'"'"')]"
+            "value": "[parameters('logAnalytics')]"
           }
         },
         "policyDefinitionId": "{{policyDefinitionId}}"

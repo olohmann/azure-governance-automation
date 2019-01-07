@@ -9,12 +9,3 @@ variable "initiative_name" {
 variable "deployment_version" {
   type = "string"
 }
-
-variable "scope" {
-  type = "string"
-}
-
-variable "scope_is_management_group" {
-  type = "string"
-}
-

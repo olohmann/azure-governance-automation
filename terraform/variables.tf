@@ -23,12 +23,6 @@ variable "scope" {
   description = "The scope for the policy definition and assignment. E.g. a management group ID or a subscription ID."
 }
 
-variable "scope_is_management_group" {
-  type = "string"
-  default = false
-  description = "A boolean flag stating of the scope is a management group."
-}
-
 variable "location" {
   type = "string"
   description = "Location for the Managed Identity created in the policy initiative assignment."
