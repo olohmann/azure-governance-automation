@@ -78,7 +78,7 @@ if echo "$HTTP_OUTPUT" | grep -q -E '< HTTP/[0-9.]+ 202 Accepted'; then
         echo "$(date +%Y-%m-%d_%H-%M-%S) Azure Policy Compliance is still being evaluated... ($(expr ${SLEEP_INTERVAL} \* ${SLEEP_COUNTER})s elapsed)"
     done
 
-    if echo "$HTTP_OUTPUT" | grep -q -E '{"status":"Succeeded"}'; then
+    if echo "$HTTP_POLL_OUTPUT" | grep -q -E '{"status":"Succeeded"}'; then
         echo "Azure Policy Compliance evaluation has completed."
     else 
         echo "Unknown error in Azure Policy Compliance evaluation."
