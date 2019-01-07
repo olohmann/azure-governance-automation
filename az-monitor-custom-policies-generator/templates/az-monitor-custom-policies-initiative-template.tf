@@ -1,22 +1,11 @@
-data "azurerm_subscription" "current" {}
+resource "azurerm_policy_set_definition" "initiative" {
+  name         = "${var.initiative_name}"
+  policy_type  = "Custom"
+  display_name = "${var.initiative_name}"
+  description  = "${var.initiative_name} ${var.deployment_version}"
 
-data "template_file" "cmd_create_template" {
-    template = <<COMMAND
-az policy set-definition create --name "${var.initiative_name}" --subscription $(echo "${data.azurerm_subscription.current.id}" | cut -d"/" -f3) --definitions '[
-    {% for policyDefinitionId in policyDefinitionIds %}
-    {
-        "parameters": {
-          "diagSettingsName": {
-            "value": "[parameters('"'"'diagSettingsName'"'"')]"
-          },
-          "logAnalytics": {
-            "value": "[parameters('"'"'logAnalytics'"'"')]"
-          }
-        },
-        "policyDefinitionId": "{{policyDefinitionId}}"
-    }{{ "," if not loop.last }}
-    {% endfor %}
-]' --params '{
+  parameters = <<PARAMETERS
+{
     "diagSettingsName": {
         "metadata": {
             "displayName": "Diagnostic Settings Name",
@@ -32,29 +21,28 @@ az policy set-definition create --name "${var.initiative_name}" --subscription $
         },
         "type": "String"
     }
-}' --description '${var.custom_policies_prefix}_{{policyPartialName}} ${var.deployment_version}'
-COMMAND
+}
+PARAMETERS
+
+  policy_definitions = <<POLICY_DEFINITIONS
+    [
+{% for policyDefinitionId in policyDefinitionIds %}
+    {
+        "parameters": {
+          "diagSettingsName": {
+            "value": "[parameters('"'"'diagSettingsName'"'"')]"
+          },
+          "logAnalytics": {
+            "value": "[parameters('"'"'logAnalytics'"'"')]"
+          }
+        },
+        "policyDefinitionId": "{{policyDefinitionId}}"
+    }{{ "," if not loop.last }}
+{% endfor %} 
+    ]
+POLICY_DEFINITIONS
 }
 
-data "template_file" "cmd_destroy_template" {
-    template = <<COMMAND
-    az policy set-definition delete --name "${var.initiative_name}" --subscription $(echo "${data.azurerm_subscription.current.id}" | cut -d"/" -f3)
-COMMAND
-}
-
-resource "null_resource" "logging_policy_initiative" {
-  triggers = {
-    input = "${sha256(data.template_file.cmd_create_template.rendered)}"
-  }
-
-  provisioner "local-exec" {
-    when    = "destroy"
-    command ="${data.template_file.cmd_destroy_template.rendered}" 
-
-    environment {
-    }
-  }
-  provisioner "local-exec" {
-    command ="${data.template_file.cmd_create_template.rendered}" 
-  }
+output "policy_set_id" {
+  value = "${azurerm_policy_set_definition.initiative.id}"
 }

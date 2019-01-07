@@ -1,7 +1,7 @@
 resource "azurerm_policy_definition" "policy_{{policyPartialName}}" {
   name         = "${var.custom_policies_prefix}_{{policyPartialName}}"
   policy_type  = "Custom"
-  mode         = "Indexed"
+  mode         = "indexed"
   display_name = "${var.custom_policies_prefix}_{{policyPartialName}}"
   description  = "${var.custom_policies_prefix}_{{policyPartialName}} ${var.deployment_version}"
   metadata = <<METADATA
