@@ -7,15 +7,15 @@ module "az_monitor_custom_policies_generated" {
   custom_policies_prefix    = "${var.custom_policies_prefix}"
   initiative_name           = "${var.custom_policies_prefix}_DIAG_0000_Initiative"
   deployment_version        = "${var.deployment_version}"
+  management_group_id       = "${var.management_group_id}"
 }
 
 resource "azurerm_policy_assignment" "initiative_assignment" {
-  name                 = "${var.custom_policies_prefix}_DIAG_0000_Initiative_Assignment"
+  name                 = "${var.custom_policies_prefix}_DIAG_0000"
   display_name         = "${var.custom_policies_prefix}_DIAG_0000_Initiative_Assignment"
   scope                = "${var.scope}"
   policy_definition_id = "${module.az_monitor_custom_policies_generated.policy_set_id}"
   description          = "${var.custom_policies_prefix}_DIAG_0000_Initiative_Assignment ${var.deployment_version}"
-
   identity {
     type = "SystemAssigned"
   }

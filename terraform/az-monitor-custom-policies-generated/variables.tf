@@ -9,3 +9,7 @@ variable "initiative_name" {
 variable "deployment_version" {
   type = "string"
 }
+
+variable "management_group_id" {
+  type = "string"
+}

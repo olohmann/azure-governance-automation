@@ -11,5 +11,6 @@ terraform destroy \
   -var "diagnostics_settings_name=${diagnostics_settings_name}" \
   -var "scope=${scope}" \
   -var "location=${location}" \
+  -var "management_group_id=${management_group_id}" \
   -input=false \
   -auto-approve

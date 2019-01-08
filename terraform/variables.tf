@@ -27,3 +27,9 @@ variable "location" {
   type = "string"
   description = "Location for the Managed Identity created in the policy initiative assignment."
 }
+
+variable "management_group_id" {
+  type = "string"
+  description = "If set, this has to correspond to scope and has to be defined only, if scope is a management group."
+  default = ""
+}

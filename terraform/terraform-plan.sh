@@ -11,5 +11,6 @@ terraform plan \
   -var "diagnostics_settings_name=${diagnostics_settings_name}" \
   -var "scope=${scope}" \
   -var "location=${location}" \
+  -var "management_group_id=${management_group_id}" \
   -out=tfplan \
   -input=false 
