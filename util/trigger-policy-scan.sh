@@ -53,7 +53,7 @@ done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
 # Check Options
-if [ -z "$SUBSCRIPTION" ]; then .log 3 "Required environment parameter not defined: --subscription/-s"; param_errs=$((param_errs + 1)); fi
+if [ -z "$SUBSCRIPTION" ]; then .log 3 "Required parameter not defined: --subscription/-s"; param_errs=$((param_errs + 1)); fi
 if [ ${param_errs} -gt 0 ]; then 
     .log 3 "Options invalid. Aborting..."
     exit 1
