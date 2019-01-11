@@ -38,4 +38,12 @@ source ./env.sh
 
 The `.env.sh` file will contain extremely sensitive information. Make sure that you don't distribute that file unintentionally. It is per default in the `.gitignore` list.
 
-### Configuration
+### TODOs
+
+* Currently, the `terraform` provider requires a custom build from the master branch as the required features have not yet been released in a pre-built binary.
+* This repository mixes code generation and tooling in one place. In future, this should be split.
+
+### References
+
+* [Terraform Azure Resource Provider Documentation](https://www.terraform.io/docs/providers/azurerm/)
+* [Azure Monitor Sample Policies](https://github.com/johnkemnetz/azmon-onboarding/tree/master/policies)
