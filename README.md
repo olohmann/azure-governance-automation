@@ -40,7 +40,6 @@ The `.env.sh` file will contain extremely sensitive information. Make sure that 
 
 ### TODOs
 
-* Currently, the `terraform` provider requires a custom build from the master branch as the required features have not yet been released in a pre-built binary.
 * This repository mixes code generation and tooling in one place. In future, this should be split.
 
 ### References
